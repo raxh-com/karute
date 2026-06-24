@@ -63,7 +63,16 @@ footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;lin
 .modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 18px;border-bottom:1px solid var(--line-soft)}
 .modal-head h4{font-size:15.5px;font-weight:700}.modal-head .s{font-size:12px;color:var(--muted);margin-top:2px}
 .x{background:var(--offbg);border:none;width:34px;height:34px;border-radius:50%;cursor:pointer;color:var(--ink-2);flex:0 0 auto;display:flex;align-items:center;justify-content:center}.x svg{width:18px;height:18px}
-.modal-body{padding:16px;overflow:auto;position:relative;min-height:140px}
+.modal-body{padding:16px;overflow:auto;position:relative;min-height:140px;flex:1;display:flex;flex-direction:column}
+.pdf-toolbar{display:flex;justify-content:flex-end;margin-bottom:8px;flex-shrink:0}
+.btn-full{display:flex;align-items:center;gap:6px;background:var(--acento-soft);color:var(--acento-ink);border:none;border-radius:8px;padding:7px 13px;font-size:12.5px;font-weight:600;cursor:pointer;transition:.15s;flex-shrink:0}
+.btn-full:hover{background:var(--acento);color:#fff}.btn-full svg{width:14px;height:14px}
+.modal.pdf-full{padding:0}
+.modal-box.pdf-full{max-width:100%;width:100%;max-height:100dvh;height:100dvh;border-radius:0}
+.modal-box.pdf-full .modal-body{padding:0 10px 6px;overflow:hidden}
+.modal-box.pdf-full .hallazgos{display:none}
+.modal-box.pdf-full .pdf-toolbar{padding:6px 0 4px}
+.modal-box.pdf-full #pdf-iframe{flex:1;height:auto !important;border-radius:0;min-height:0}
 .hallazgos{background:var(--acento-soft);border-radius:12px;padding:13px 15px;margin-bottom:14px}
 .hallazgos h5{font-size:12px;font-weight:800;color:var(--acento-ink);letter-spacing:.3px;display:flex;align-items:center;gap:7px;margin-bottom:8px}
 .hallazgos h5 svg{width:14px;height:14px}
@@ -165,8 +174,10 @@ function ver(idx,tipo){
   document.getElementById('m-title').textContent=e.nombre;
   document.getElementById('m-sub').textContent=`${e.lugar} · ${e.fecha}`;
   if(tipo==='pdf'){
-    body.innerHTML=hallazgosHTML(e)+`<div style="position:relative"><div class="loader"><div class="spin"></div>Cargando informe…</div>
-      <iframe src="${e.informe}" style="width:100%;height:62vh;border:none;border-radius:12px;background:#f1f4f6;opacity:0;transition:.3s" onload="this.style.opacity=1;this.previousElementSibling.remove()"></iframe></div>`;
+    body.innerHTML=hallazgosHTML(e)+
+      `<div class="pdf-toolbar"><button class="btn-full" id="btn-pdf-full" onclick="togglePdfFull()">${I('maximize-2')} Pantalla completa</button></div>`+
+      `<div style="position:relative;flex:1;display:flex;flex-direction:column;min-height:0"><div class="loader"><div class="spin"></div>Cargando informe…</div>
+      <iframe id="pdf-iframe" src="${e.informe}" style="width:100%;height:62vh;border:none;border-radius:12px;background:#f1f4f6;opacity:0;transition:.3s;flex:1" onload="this.style.opacity=1;this.previousElementSibling.remove()"></iframe></div>`;
     toast('file-text','Mostrando informe médico');
   }else if(tipo==='find'){
     body.innerHTML=hallazgosHTML(e)+`<p class="hint">${I('info')} Resumen de hallazgos del informe.</p>`;
@@ -192,7 +203,31 @@ function playSerie(idx,i){const s=EX[idx].series[i];document.querySelector(`#ser
   `<video src="${s.clip}" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;background:#000"></video><span class="cap">${s.label}</span>`;}
 function playClip(idx,i){const c=EX[idx].clips[i];document.querySelector(`#clip-${i} .media`).innerHTML=
   `<video src="${c.file}" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;background:#000"></video><span class="cap">${c.label}</span>`;}
-function cerrar(){document.getElementById('modal').classList.remove('show');document.getElementById('m-body').innerHTML='';}
+function togglePdfFull(){
+  const modal=document.getElementById('modal');
+  const box=modal.querySelector('.modal-box');
+  const btn=document.getElementById('btn-pdf-full');
+  const full=box.classList.toggle('pdf-full');
+  modal.classList.toggle('pdf-full',full);
+  if(full){
+    btn.innerHTML=`${I('minimize-2')} Salir`;
+    const el=modal;
+    if(el.requestFullscreen) el.requestFullscreen().catch(()=>{});
+    else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+  }else{
+    btn.innerHTML=`${I('maximize-2')} Pantalla completa`;
+    if(document.exitFullscreen) document.exitFullscreen().catch(()=>{});
+    else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+  }
+  icons();
+}
+function cerrar(){
+  const modal=document.getElementById('modal');
+  modal.classList.remove('show','pdf-full');
+  modal.querySelector('.modal-box').classList.remove('pdf-full');
+  if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+  document.getElementById('m-body').innerHTML='';
+}
 document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')cerrar();});
 document.getElementById('filtros').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;
   document.querySelectorAll('.chip').forEach(x=>x.classList.remove('activo'));c.classList.add('activo');render(c.dataset.f);});

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Historial Médico · Diana Patricia Aguirre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f4ee;--card:#fff;--ink:#0e2230;--ink-2:#33485a;--muted:#6a7d8c;--line:#e8e3d8;--line-soft:#eef1f3;
+--acento:#0e7c7b;--acento-ink:#0a5f5e;--acento-soft:#e4f1f0;--ok:#0e7c7b;--okbg:#e4f1f0;--off:#9aa8b4;--offbg:#eef1f3;
+--r:18px;--sh:0 1px 2px rgba(14,34,48,.04),0 10px 30px rgba(14,34,48,.05);--sh-sm:0 1px 2px rgba(14,34,48,.05)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:15px;background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:680px;margin:0 auto;padding:0 18px 72px}
+svg.lucide{stroke-width:2;flex:0 0 auto}
+header{padding:28px 0 6px}
+.badge{display:inline-flex;align-items:center;gap:7px;background:var(--acento-soft);color:var(--acento-ink);padding:6px 13px;border-radius:999px;font-size:11.5px;font-weight:700}
+.badge svg{width:14px;height:14px}
+header h1{font-size:25px;font-weight:700;letter-spacing:-.6px;margin-top:15px;line-height:1.1}
+.accent-line{width:44px;height:4px;background:var(--acento);border-radius:99px;margin:13px 0 11px}
+header .sub{font-size:13px;color:var(--muted);font-weight:500}
+header p.desc{font-size:14px;color:var(--ink-2);margin-top:13px;max-width:96%;line-height:1.6}
+.meta{display:flex;gap:9px;margin-top:17px;flex-wrap:wrap}
+.pill{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);padding:8px 13px;border-radius:999px;font-size:12px;color:var(--ink-2);font-weight:600;box-shadow:var(--sh-sm)}
+.pill svg{width:14px;height:14px;color:var(--acento)}
+.filtros{display:flex;gap:9px;overflow-x:auto;padding:22px 2px 6px;scrollbar-width:none}.filtros::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;background:var(--card);border:1.5px solid var(--line);color:var(--ink-2);padding:9px 15px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.18s;white-space:nowrap}
+.chip .n{background:var(--offbg);color:var(--muted);font-size:11px;padding:1px 8px;border-radius:999px;font-weight:700}
+.chip:not(.activo):hover{border-color:var(--acento);color:var(--acento)}
+.chip.activo{background:var(--acento);border-color:var(--acento);color:#fff}.chip.activo .n{background:rgba(255,255,255,.25);color:#fff}
+.sec{margin-top:28px}.sec-head{display:flex;align-items:center;gap:12px}
+.tile{width:40px;height:40px;border-radius:12px;background:var(--acento-soft);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.tile svg{width:20px;height:20px;color:var(--acento)}
+.sec-head .num{font-size:10.5px;font-weight:800;color:var(--acento);letter-spacing:.6px}
+.sec-head h2{font-size:17px;font-weight:700;letter-spacing:-.3px;line-height:1.15}
+.sec-head .count{margin-left:auto;font-size:12px;font-weight:700;color:var(--muted);background:var(--card);border:1px solid var(--line);padding:5px 11px;border-radius:999px}
+.sec-rule{height:1px;background:var(--line);margin:13px 0}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);padding:16px;margin-bottom:11px;border:1px solid var(--line-soft);transition:.18s}
+.card.off{box-shadow:var(--sh-sm);cursor:pointer}.card.off:active{transform:scale(.99)}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.card h3{font-size:15px;font-weight:650;line-height:1.32;letter-spacing:-.2px}
+.card .subt{font-size:12.5px;color:var(--muted);margin-top:2px}
+.card.off h3{color:var(--ink-2)}
+.estado{flex:0 0 auto;font-size:10.5px;font-weight:700;padding:5px 10px;border-radius:999px;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.estado.ok{background:var(--okbg);color:var(--ok)}.estado.no{background:var(--offbg);color:var(--off)}
+.estado .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.info{display:flex;flex-wrap:wrap;gap:7px 16px;margin-top:10px;font-size:12.5px;color:var(--muted)}
+.info span{display:flex;align-items:center;gap:6px}.info svg{width:14px;height:14px;opacity:.9}
+.acciones{display:flex;gap:9px;margin-top:14px;flex-wrap:wrap}
+.btn{flex:1 1 auto;min-width:120px;display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 12px;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:.15s}
+.btn svg{width:16px;height:16px}
+.btn-primary{background:var(--acento);color:#fff}.btn-primary:not(:disabled):hover{background:var(--acento-ink)}
+.btn-ghost{background:#fff;color:var(--acento);border-color:var(--acento)}.btn-ghost:not(:disabled):hover{background:var(--acento-soft)}
+.btn:disabled{background:var(--offbg);color:var(--off);border-color:transparent;cursor:not-allowed}
+.btn:not(:disabled):active{transform:scale(.97)}
+.vacio{background:var(--card);border:1.5px dashed var(--line);border-radius:var(--r);padding:28px 18px;text-align:center;color:var(--muted);font-size:13px}
+.vacio .tile{margin:0 auto 12px;background:var(--offbg)}.vacio .tile svg{color:var(--off)}
+footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;line-height:1.7}footer b{color:var(--acento)}
+.modal{position:fixed;inset:0;background:rgba(10,24,33,.82);display:none;align-items:center;justify-content:center;padding:14px;z-index:50;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.modal.show{display:flex}
+.modal-box{background:#fff;border-radius:22px;max-width:660px;width:100%;max-height:92vh;overflow:hidden;display:flex;flex-direction:column;animation:pop .22s ease}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 18px;border-bottom:1px solid var(--line-soft)}
+.modal-head h4{font-size:15.5px;font-weight:700}.modal-head .s{font-size:12px;color:var(--muted);margin-top:2px}
+.x{background:var(--offbg);border:none;width:34px;height:34px;border-radius:50%;cursor:pointer;color:var(--ink-2);flex:0 0 auto;display:flex;align-items:center;justify-content:center}.x svg{width:18px;height:18px}
+.modal-body{padding:16px;overflow:auto;position:relative;min-height:140px;flex:1;display:flex;flex-direction:column}
+.pdf-toolbar{display:flex;justify-content:flex-end;gap:8px;margin-bottom:8px;flex-shrink:0}
+.btn-full{display:flex;align-items:center;gap:6px;background:var(--acento-soft);color:var(--acento-ink);border:none;border-radius:8px;padding:7px 13px;font-size:12.5px;font-weight:600;cursor:pointer;transition:.15s;flex-shrink:0;text-decoration:none}
+.btn-full:hover{background:var(--acento);color:#fff}.btn-full svg{width:14px;height:14px}
+.pdf-wrap{overflow:auto;-webkit-overflow-scrolling:touch;flex:1;border-radius:12px;background:#f1f4f6;position:relative;min-height:260px}
+.pdf-wrap iframe{width:100%;height:100%;min-height:600px;border:none;opacity:0;transition:.3s;display:block}
+.modal.pdf-full{padding:0}
+.modal-box.pdf-full{max-width:100%;width:100%;max-height:100dvh;height:100dvh;border-radius:0}
+.modal-box.pdf-full .modal-body{padding:0 10px 6px;overflow:hidden}
+.modal-box.pdf-full .hallazgos{display:none}
+.modal-box.pdf-full .pdf-toolbar{padding:6px 0 4px}
+.modal-box.pdf-full .pdf-wrap{border-radius:0;flex:1}
+.modal-box.pdf-full #pdf-iframe{min-height:100%}
+.hallazgos{background:var(--acento-soft);border-radius:12px;padding:13px 15px;margin-bottom:14px}
+.hallazgos h5{font-size:12px;font-weight:800;color:var(--acento-ink);letter-spacing:.3px;display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.hallazgos h5 svg{width:14px;height:14px}
+.hallazgos ul{margin:0;padding-left:18px}.hallazgos li{font-size:12.5px;color:var(--ink-2);margin:4px 0;line-height:1.45}
+.loader{position:absolute;inset:0;display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;color:var(--muted);font-size:13px}
+.spin{width:34px;height:34px;border:3px solid var(--acento-soft);border-top-color:var(--acento);border-radius:50%;animation:rot .8s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+.series{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.serie{background:#0b1620;border-radius:14px;overflow:hidden;position:relative}
+.serie .media{position:relative;aspect-ratio:1/1;background:#000;display:flex;align-items:center;justify-content:center}
+.serie img,.serie video{width:100%;height:100%;object-fit:contain;background:#000}
+.serie .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;background:linear-gradient(transparent 50%,rgba(0,0,0,.62))}
+.serie .play .circ{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.94);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.serie .play:active .circ{transform:scale(.9)}.serie .play svg{width:21px;height:21px;color:var(--acento);margin-left:2px}
+.serie .cap{position:absolute;left:9px;bottom:8px;right:9px;color:#fff;font-size:11.5px;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.85);line-height:1.25}
+.serie .tag{position:absolute;right:8px;top:8px;background:rgba(255,255,255,.92);color:var(--acento);font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px;display:flex;align-items:center;gap:4px}
+.serie .tag svg{width:11px;height:11px}
+.hint{font-size:12.5px;color:var(--muted);text-align:center;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:6px}.hint svg{width:15px;height:15px;color:var(--acento)}
+@media(max-width:430px){.series{grid-template-columns:1fr}}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(80px);background:var(--ink);color:#fff;padding:13px 18px;border-radius:14px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 12px 30px rgba(0,0,0,.3);z-index:60;opacity:0;transition:.3s;max-width:90%}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}.toast svg{width:18px;height:18px;flex:0 0 auto;color:#6fd6cf}
+/* madre: imágenes landscape a ancho completo */
+.series{grid-template-columns:1fr;gap:14px}
+.serie .media{aspect-ratio:auto}
+.serie img,.serie video{height:auto}
+.home-link{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--acento-ink);background:var(--acento-soft);padding:6px 13px;border-radius:999px;text-decoration:none;margin-bottom:14px}
+.home-link:hover{background:var(--acento);color:#fff}
+</style></head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="home-link" href="../">‹ Pacientes</a>
+    <span class="badge"><i data-lucide="activity"></i> Historial Médico</span>
+    <h1>Diana Patricia Aguirre</h1><div class="accent-line"></div>
+    <div class="sub">Paciente · 52 años · RUT 22.275.343-0</div>
+    <p class="desc">Exámenes médicos organizados y al día: laboratorio, imágenes y biopsias & PAP. Cada examen incluye su informe y, cuando corresponde, sus imágenes por segmento. Use los filtros para encontrar cada examen.</p>
+    <div class="meta">
+      <span class="pill"><i data-lucide="calendar"></i> Actualizado 24 jun 2026</span>
+      <span class="pill"><i data-lucide="circle-check"></i> <span id="m-disp">0</span> disponibles</span>
+    </div>
+  </header>
+  <div class="filtros" id="filtros"></div>
+  <div id="lista"></div>
+  <footer>Plataforma privada de salud · <b>Diana Patricia Aguirre</b><br>Información confidencial · Hecho con NAGARE</footer>
+</div>
+<div class="modal" id="modal"><div class="modal-box">
+  <div class="modal-head"><div><h4 id="m-title">Documento</h4><div class="s" id="m-sub"></div></div><button class="x" onclick="cerrar()"><i data-lucide="x"></i></button></div>
+  <div class="modal-body" id="m-body"></div>
+</div></div>
+<div class="toast" id="toast"><span id="toast-ic"></span><span id="toast-msg"></span></div>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+const DB={"exams": [{"cat": "laboratorio", "nombre": "Panel inmunológico y bioquímico", "subt": "Estudio reumatológico · autoinmunidad, lípidos, tiroides, hígado, hemograma", "lugar": "Laboratorio Clínico · UC Christus", "fecha": "15 jun 2026", "informe": "examenes/laboratorio/lab-panel-reumatologico-15jun.pdf", "findings": ["Autoinmunidad: Anticuerpos antinucleares (ANA) POSITIVOS a dilución 1/320, patrón citoplasmático granular (AC-19/20)", "Anti-DNA negativo; ANCA (anti-MPO y anti-PR3) negativos; complemento C3 y C4 en rango normal", "HLA-B27: muestra tomada, resultado pendiente (marcador asociado a espondiloartropatías)", "Perfil lipídico alterado: Colesterol total 287 mg/dL (alto), LDL 173 mg/dL (alto), HDL 90 mg/dL (protector), triglicéridos 119 mg/dL (normal)", "Tiroides: TSH normal (1.02); Tiroxina libre (T4L) levemente baja (0.68; referencia 0.93–1.70)", "Función hepática normal — índice FIB-4 0.79 (sin fibrosis); tiempo de protrombina 137% / INR 0.8", "Función renal conservada: creatinina 0.90 mg/dL, filtrado glomerular estimado 74 mL/min", "Hemograma: leve neutrofilia (75%) con linfopenia (18.7%) y eosinófilos bajos; hemoglobina y plaquetas normales", "Sin inflamación sistémica activa: PCR <0.06 mg/dL y VHS 5 mm/hr (ambos normales)"], "clips": []}, {"cat": "imagenes", "nombre": "RM Columna Dorsolumbar y Sacroilíacas", "subt": "Protocolo Espondiloartropatía", "lugar": "Centro Médico Escuela Militar · UC Christus", "fecha": "17 jun 2026", "informe": "examenes/imagenes/rm-columna-si/informe.pdf", "findings": ["Sin fenómenos inflamatorios sugerentes de pelviespondiloartropatía activa", "Sacroilíacas: cambios degenerativos del componente anteroinferior, sin erosiones ni edema óseo inflamatorio", "Discopatía degenerativa L5-S1 con protrusión discal anular posterior y cambios tipo Modic II", "Espondilólisis bilateral L5-S1 que determina anterolistesis grado I (deslizamiento vertebral leve)", "Discopatía degenerativa C5-C6 y C6-C7 con protrusión disco-osteofitaria marginal posterior", "Artrosis facetaria L4-L5 y L5-S1 bilateral", "Hallazgo incidental: edema/cambios inflamatorios en tejido subcutáneo de región glútea derecha"], "clips": [{"label": "Sagital de columna dorsolumbar (T1/STIR) — cervical, dorsal y lumbar", "file": "examenes/imagenes/rm-columna-si/clips/sagital-columna-dorsolumbar.mp4", "poster": "examenes/imagenes/rm-columna-si/clips/posters/sagital-columna-dorsolumbar.jpg"}, {"label": "Coronal STIR de columna dorsal y oblicuo de articulaciones sacroilíacas", "file": "examenes/imagenes/rm-columna-si/clips/coronal-sacroiliacas.mp4", "poster": "examenes/imagenes/rm-columna-si/clips/posters/coronal-sacroiliacas.jpg"}]}, {"cat": "imagenes", "nombre": "RM Articulaciones Sacroilíacas", "subt": "Estudio dirigido de sacroilíacas", "lugar": "Centro Médico Escuela Militar · UC Christus", "fecha": "19 jun 2026", "informe": "examenes/imagenes/rm-sacroiliacas/informe.pdf", "findings": ["Cambios degenerativos incipientes del componente anteroinferior de ambas articulaciones sacroilíacas", "Irregularidad y esclerosis de superficies articulares, osteofitos marginales e hiperemia trabecular por sobrecarga (mayor a derecha)", "Sin erosiones, sin osteítis del hueso esponjoso, sin cambios inflamatorios de ligamentos ni partes blandas presacras", "Neuroforámenes sacros de amplitud normal; raíces sacras sin compresión", "Conclusión: hallazgos degenerativos, no sugerentes de sacroileítis inflamatoria"], "clips": [{"label": "Cortes coronales oblicuos de sacroilíacas (T1 y STIR, múltiples cortes)", "file": "examenes/imagenes/rm-sacroiliacas/clips/sacroiliacas-coronal-oblicuo.mp4", "poster": "examenes/imagenes/rm-sacroiliacas/clips/posters/sacroiliacas-coronal-oblicuo.jpg"}]}], "cats": {"laboratorio": {"n": "01", "titulo": "Laboratorio", "icon": "flask-conical"}, "imagenes": {"n": "02", "titulo": "Imágenes", "icon": "scan-line"}, "biopsias": {"n": "03", "titulo": "Biopsias & PAP", "icon": "microscope"}}};
+const EX=DB.exams, CATS=DB.cats;
+const ORDER=["laboratorio","imagenes","biopsias"];
+const I=n=>`<i data-lucide="${n}"></i>`;
+function media(e){return (e.series&&e.series.length)||(e.clips&&e.clips.length)}
+function disp(e){return !!(e.informe||media(e))}
+function icons(){if(window.lucide)lucide.createIcons()}
+
+function build(){
+  const f=document.getElementById('filtros');
+  f.innerHTML=`<div class="chip activo" data-f="todos">Todos <span class="n">${EX.length}</span></div>`+
+    ORDER.map(c=>`<div class="chip" data-f="${c}">${CATS[c].titulo} <span class="n">${EX.filter(e=>e.cat===c).length}</span></div>`).join('');
+  document.getElementById('m-disp').textContent=EX.filter(disp).length;
+}
+function render(filtro){
+  const lista=document.getElementById('lista');lista.innerHTML='';
+  const grupos=(filtro==='todos')?ORDER:[filtro];
+  grupos.forEach(cat=>{
+    const items=EX.filter(e=>e.cat===cat);
+    const sec=document.createElement('div');sec.className='sec';
+    sec.innerHTML=`<div class="sec-head"><div class="tile">${I(CATS[cat].icon)}</div>
+      <div><div class="num">SECCIÓN ${CATS[cat].n}</div><h2>${CATS[cat].titulo}</h2></div>
+      <span class="count">${items.length}</span></div><div class="sec-rule"></div>`;
+    if(!items.length){const v=document.createElement('div');v.className='vacio';
+      v.innerHTML=`<div class="tile">${I('inbox')}</div>Aún no hay exámenes cargados en esta sección.`;sec.appendChild(v);}
+    else items.forEach(e=>sec.appendChild(card(e,EX.indexOf(e))));
+    lista.appendChild(sec);
+  });
+  icons();
+}
+function card(e,idx){
+  const ok=disp(e);const hasSeries=e.series&&e.series.length;const hasClips=e.clips&&e.clips.length;
+  const d=document.createElement('div');d.className='card'+(ok?'':' off');
+  if(!ok)d.onclick=()=>toast('info','Este examen aún no está disponible.');
+  d.innerHTML=`<div class="card-top"><div><h3>${e.nombre}</h3>${e.subt?`<div class="subt">${e.subt}</div>`:''}</div>
+    <span class="estado ${ok?'ok':'no'}"><span class="dot"></span>${ok?'Disponible':'No disponible'}</span></div>
+    <div class="info"><span>${I('map-pin')} ${e.lugar}</span><span>${I('calendar')} ${e.fecha}</span></div>`;
+  if(ok){const a=document.createElement('div');a.className='acciones';
+    let b='';
+    b+=`<button class="btn btn-ghost" ${e.informe?'':'disabled'} onclick="ver(${idx},'pdf')">${I('file-text')} Informe</button>`;
+    if(hasSeries)b+=`<button class="btn btn-primary" onclick="ver(${idx},'series')">${I('image')} Imágenes y video · ${e.series.length}</button>`;
+    else if(hasClips)b+=`<button class="btn btn-primary" onclick="ver(${idx},'clips')">${I('clapperboard')} Videos · ${e.clips.length}</button>`;
+    else if(e.findings&&e.findings.length)b+=`<button class="btn btn-primary" onclick="ver(${idx},'find')">${I('list')} Hallazgos</button>`;
+    a.innerHTML=b;d.appendChild(a);}
+  return d;
+}
+function hallazgosHTML(e){
+  if(!e.findings||!e.findings.length)return '';
+  return `<div class="hallazgos"><h5>${I('stethoscope')} Hallazgos del informe</h5><ul>`+
+    e.findings.map(f=>`<li>${f}</li>`).join('')+`</ul></div>`;
+}
+function ver(idx,tipo){
+  const e=EX[idx];const body=document.getElementById('m-body');
+  document.getElementById('m-title').textContent=e.nombre;
+  document.getElementById('m-sub').textContent=`${e.lugar} · ${e.fecha}`;
+  if(tipo==='pdf'){
+    body.innerHTML=hallazgosHTML(e)+
+      `<div class="pdf-toolbar">
+        <a class="btn-full" href="${e.informe}" target="_blank" rel="noopener">${I('external-link')} Abrir PDF</a>
+        <button type="button" class="btn-full" id="btn-pdf-full" onclick="togglePdfFull()">${I('maximize-2')} Pantalla completa</button>
+      </div>`+
+      `<div class="pdf-wrap"><div class="loader"><div class="spin"></div>Cargando informe…</div>
+      <iframe id="pdf-iframe" src="${e.informe}" onload="this.style.opacity=1;if(this.previousElementSibling&&this.previousElementSibling.classList.contains('loader'))this.previousElementSibling.remove()"></iframe></div>`;
+    toast('file-text','Mostrando informe médico');
+  }else if(tipo==='find'){
+    body.innerHTML=hallazgosHTML(e)+`<p class="hint">${I('info')} Resumen de hallazgos del informe.</p>`;
+  }else if(tipo==='series'){
+    body.innerHTML=`<div class="series">`+e.series.map((s,i)=>`<div class="serie" id="serie-${i}"><div class="media">
+      <span class="tag">${I('video')} video</span><img src="${s.img}" alt="${s.label}">
+      <div class="play" onclick="playSerie(${idx},${i})"><div class="circ">${I('play')}</div></div>
+      <span class="cap">${s.label}</span></div></div>`).join('')+`</div>
+      <p class="hint">${I('pointer')} Toca cualquier imagen para ver el video de esa serie.</p>`;
+    toast('image',`${e.series.length} series · imagen + video`);
+  }else{ // clips
+    body.innerHTML=hallazgosHTML(e)+`<div class="series">`+e.clips.map((c,i)=>`<div class="serie" id="clip-${i}"><div class="media">
+      <span class="tag">${I('video')} video</span>
+      <img src="${c.poster}" alt="${c.label}" onerror="this.style.display='none'">
+      <div class="play" onclick="playClip(${idx},${i})"><div class="circ">${I('play')}</div></div>
+      <span class="cap">${c.label}</span></div></div>`).join('')+`</div>
+      <p class="hint">${I('pointer')} Toca cualquier recuadro para reproducir ese segmento.</p>`;
+    toast('clapperboard',`${e.clips.length} videos por segmento`);
+  }
+  document.getElementById('modal').classList.add('show');icons();
+}
+function playSerie(idx,i){const s=EX[idx].series[i];document.querySelector(`#serie-${i} .media`).innerHTML=
+  `<video src="${s.clip}" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;background:#000"></video><span class="cap">${s.label}</span>`;}
+function playClip(idx,i){const c=EX[idx].clips[i];document.querySelector(`#clip-${i} .media`).innerHTML=
+  `<video src="${c.file}" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;background:#000"></video><span class="cap">${c.label}</span>`;}
+function togglePdfFull(){
+  const modal=document.getElementById('modal');
+  const box=modal.querySelector('.modal-box');
+  const btn=document.getElementById('btn-pdf-full');
+  const full=box.classList.toggle('pdf-full');
+  modal.classList.toggle('pdf-full',full);
+  if(full){
+    btn.innerHTML=`${I('minimize-2')} Salir`;
+    const el=modal;
+    if(el.requestFullscreen) el.requestFullscreen().catch(()=>{});
+    else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+  }else{
+    btn.innerHTML=`${I('maximize-2')} Pantalla completa`;
+    if(document.exitFullscreen) document.exitFullscreen().catch(()=>{});
+    else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+  }
+  icons();
+}
+function cerrar(){
+  const modal=document.getElementById('modal');
+  modal.classList.remove('show','pdf-full');
+  modal.querySelector('.modal-box').classList.remove('pdf-full');
+  if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+  document.getElementById('m-body').innerHTML='';
+}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')cerrar();});
+document.getElementById('filtros').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;
+  document.querySelectorAll('.chip').forEach(x=>x.classList.remove('activo'));c.classList.add('activo');render(c.dataset.f);});
+let toastT;function toast(ic,msg){const t=document.getElementById('toast');
+  document.getElementById('toast-ic').innerHTML=I(ic);document.getElementById('toast-msg').textContent=msg;icons();
+  t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2800);}
+build();render('todos');icons();
+</script></body></html>

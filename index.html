@@ -16,44 +16,9 @@ svg.lucide{stroke-width:2;flex:0 0 auto}
 header{padding:60px 0 8px;text-align:center}
 .badge{display:inline-flex;align-items:center;gap:8px;background:var(--acento-soft);color:var(--acento-ink);padding:7px 15px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.4px}
 .badge svg{width:15px;height:15px}
-.jp{font-weight:700;letter-spacing:2px;font-size:14px}
-
-/* === KARUTE animated title === */
-.karute-title{
-  --anim-color:#37FF8B;
-  position:relative;
-  display:inline-block;
-  margin-top:22px;
-  font-family:'Inter',-apple-system,sans-serif;
-  font-size:clamp(2.6rem,11vw,3.6rem);
-  font-weight:800;
-  letter-spacing:7px;
-  text-transform:uppercase;
-  color:transparent;
-  -webkit-text-stroke:2px var(--ink);
-  cursor:default;
-  line-height:1.1;
-  user-select:none;
-}
-.karute-title .kt-fill{
-  position:absolute;
-  box-sizing:border-box;
-  inset:0;
-  color:var(--anim-color);
-  -webkit-text-stroke:2px var(--anim-color);
-  border-right:5px solid var(--anim-color);
-  overflow:hidden;
-  white-space:nowrap;
-  animation:kt-sweep 3s ease-in-out infinite;
-}
-@keyframes kt-sweep{
-  0%,5%{width:0%;filter:none}
-  42%,60%{width:100%;filter:drop-shadow(0 0 22px var(--anim-color))}
-  95%,100%{width:0%;filter:none}
-}
-/* === end animated title === */
-
-.accent-line{width:46px;height:4px;background:var(--acento);border-radius:99px;margin:20px auto 13px}
+.jp{font-weight:700;letter-spacing:1px}
+header h1{font-size:30px;font-weight:800;letter-spacing:-.8px;margin-top:18px;line-height:1.08}
+.accent-line{width:46px;height:4px;background:var(--acento);border-radius:99px;margin:15px auto 13px}
 header p{font-size:14px;color:var(--muted);font-weight:500}
 .cards{margin-top:38px;display:flex;flex-direction:column;gap:15px}
 .pcard{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line-soft);border-radius:var(--r);box-shadow:var(--sh);padding:20px;text-decoration:none;color:inherit;transition:.2s;position:relative;overflow:hidden}
@@ -75,12 +40,8 @@ footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:auto;pad
 <body>
 <div class="wrap">
   <header>
-    <span class="badge"><i data-lucide="heart-pulse"></i> <span class="jp">カルテ</span></span>
-    <div class="karute-title">
-      <span class="actual-text">&nbsp;KARUTE&nbsp;</span>
-      <span class="kt-fill" aria-hidden="true">&nbsp;KARUTE&nbsp;</span>
-    </div>
-    <div class="accent-line"></div>
+    <span class="badge"><i data-lucide="heart-pulse"></i> <span class="jp">カルテ</span> KARUTE</span>
+    <h1>Historial Médico Familiar</h1><div class="accent-line"></div>
     <p>Selecciona un paciente para ver sus exámenes</p>
   </header>
 

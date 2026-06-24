@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Historial Médico · Rana Waseem Ahmad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f4ee;--card:#fff;--ink:#0e2230;--ink-2:#33485a;--muted:#6a7d8c;--line:#e8e3d8;--line-soft:#eef1f3;
+--acento:#0e7c7b;--acento-ink:#0a5f5e;--acento-soft:#e4f1f0;--ok:#0e7c7b;--okbg:#e4f1f0;--off:#9aa8b4;--offbg:#eef1f3;
+--r:18px;--sh:0 1px 2px rgba(14,34,48,.04),0 10px 30px rgba(14,34,48,.05);--sh-sm:0 1px 2px rgba(14,34,48,.05)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:15px;background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:680px;margin:0 auto;padding:0 18px 72px}
+svg.lucide{stroke-width:2;flex:0 0 auto}
+header{padding:28px 0 6px}
+.badge{display:inline-flex;align-items:center;gap:7px;background:var(--acento-soft);color:var(--acento-ink);padding:6px 13px;border-radius:999px;font-size:11.5px;font-weight:700}
+.badge svg{width:14px;height:14px}
+header h1{font-size:25px;font-weight:700;letter-spacing:-.6px;margin-top:15px;line-height:1.1}
+.accent-line{width:44px;height:4px;background:var(--acento);border-radius:99px;margin:13px 0 11px}
+header .sub{font-size:13px;color:var(--muted);font-weight:500}
+header p.desc{font-size:14px;color:var(--ink-2);margin-top:13px;max-width:96%;line-height:1.6}
+.meta{display:flex;gap:9px;margin-top:17px;flex-wrap:wrap}
+.pill{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);padding:8px 13px;border-radius:999px;font-size:12px;color:var(--ink-2);font-weight:600;box-shadow:var(--sh-sm)}
+.pill svg{width:14px;height:14px;color:var(--acento)}
+.filtros{display:flex;gap:9px;overflow-x:auto;padding:22px 2px 6px;scrollbar-width:none}.filtros::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;background:var(--card);border:1.5px solid var(--line);color:var(--ink-2);padding:9px 15px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.18s;white-space:nowrap}
+.chip .n{background:var(--offbg);color:var(--muted);font-size:11px;padding:1px 8px;border-radius:999px;font-weight:700}
+.chip:not(.activo):hover{border-color:var(--acento);color:var(--acento)}
+.chip.activo{background:var(--acento);border-color:var(--acento);color:#fff}.chip.activo .n{background:rgba(255,255,255,.25);color:#fff}
+.sec{margin-top:28px}.sec-head{display:flex;align-items:center;gap:12px}
+.tile{width:40px;height:40px;border-radius:12px;background:var(--acento-soft);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.tile svg{width:20px;height:20px;color:var(--acento)}
+.sec-head .num{font-size:10.5px;font-weight:800;color:var(--acento);letter-spacing:.6px}
+.sec-head h2{font-size:17px;font-weight:700;letter-spacing:-.3px;line-height:1.15}
+.sec-head .count{margin-left:auto;font-size:12px;font-weight:700;color:var(--muted);background:var(--card);border:1px solid var(--line);padding:5px 11px;border-radius:999px}
+.sec-rule{height:1px;background:var(--line);margin:13px 0}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);padding:16px;margin-bottom:11px;border:1px solid var(--line-soft);transition:.18s}
+.card.off{box-shadow:var(--sh-sm);cursor:pointer}.card.off:active{transform:scale(.99)}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.card h3{font-size:15px;font-weight:650;line-height:1.32;letter-spacing:-.2px}
+.card .subt{font-size:12.5px;color:var(--muted);margin-top:2px}
+.card.off h3{color:var(--ink-2)}
+.estado{flex:0 0 auto;font-size:10.5px;font-weight:700;padding:5px 10px;border-radius:999px;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.estado.ok{background:var(--okbg);color:var(--ok)}.estado.no{background:var(--offbg);color:var(--off)}
+.estado .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.info{display:flex;flex-wrap:wrap;gap:7px 16px;margin-top:10px;font-size:12.5px;color:var(--muted)}
+.info span{display:flex;align-items:center;gap:6px}.info svg{width:14px;height:14px;opacity:.9}
+.acciones{display:flex;gap:9px;margin-top:14px;flex-wrap:wrap}
+.btn{flex:1 1 auto;min-width:120px;display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 12px;border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:.15s}
+.btn svg{width:16px;height:16px}
+.btn-primary{background:var(--acento);color:#fff}.btn-primary:not(:disabled):hover{background:var(--acento-ink)}
+.btn-ghost{background:#fff;color:var(--acento);border-color:var(--acento)}.btn-ghost:not(:disabled):hover{background:var(--acento-soft)}
+.btn:disabled{background:var(--offbg);color:var(--off);border-color:transparent;cursor:not-allowed}
+.btn:not(:disabled):active{transform:scale(.97)}
+.vacio{background:var(--card);border:1.5px dashed var(--line);border-radius:var(--r);padding:28px 18px;text-align:center;color:var(--muted);font-size:13px}
+.vacio .tile{margin:0 auto 12px;background:var(--offbg)}.vacio .tile svg{color:var(--off)}
+footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;line-height:1.7}footer b{color:var(--acento)}
+.modal{position:fixed;inset:0;background:rgba(10,24,33,.82);display:none;align-items:center;justify-content:center;padding:14px;z-index:50;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.modal.show{display:flex}
+.modal-box{background:#fff;border-radius:22px;max-width:660px;width:100%;max-height:92vh;overflow:hidden;display:flex;flex-direction:column;animation:pop .22s ease}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 18px;border-bottom:1px solid var(--line-soft)}
+.modal-head h4{font-size:15.5px;font-weight:700}.modal-head .s{font-size:12px;color:var(--muted);margin-top:2px}
+.x{background:var(--offbg);border:none;width:34px;height:34px;border-radius:50%;cursor:pointer;color:var(--ink-2);flex:0 0 auto;display:flex;align-items:center;justify-content:center}.x svg{width:18px;height:18px}
+.modal-body{padding:16px;overflow:auto;position:relative;min-height:140px}
+.hallazgos{background:var(--acento-soft);border-radius:12px;padding:13px 15px;margin-bottom:14px}
+.hallazgos h5{font-size:12px;font-weight:800;color:var(--acento-ink);letter-spacing:.3px;display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.hallazgos h5 svg{width:14px;height:14px}
+.hallazgos ul{margin:0;padding-left:18px}.hallazgos li{font-size:12.5px;color:var(--ink-2);margin:4px 0;line-height:1.45}
+.loader{position:absolute;inset:0;display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;color:var(--muted);font-size:13px}
+.spin{width:34px;height:34px;border:3px solid var(--acento-soft);border-top-color:var(--acento);border-radius:50%;animation:rot .8s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+.series{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.serie{background:#0b1620;border-radius:14px;overflow:hidden;position:relative}
+.serie .media{position:relative;aspect-ratio:1/1;background:#000;display:flex;align-items:center;justify-content:center}
+.serie img,.serie video{width:100%;height:100%;object-fit:contain;background:#000}
+.serie .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;background:linear-gradient(transparent 50%,rgba(0,0,0,.62))}
+.serie .play .circ{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.94);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.serie .play:active .circ{transform:scale(.9)}.serie .play svg{width:21px;height:21px;color:var(--acento);margin-left:2px}
+.serie .cap{position:absolute;left:9px;bottom:8px;right:9px;color:#fff;font-size:11.5px;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.85);line-height:1.25}
+.serie .tag{position:absolute;right:8px;top:8px;background:rgba(255,255,255,.92);color:var(--acento);font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px;display:flex;align-items:center;gap:4px}
+.serie .tag svg{width:11px;height:11px}
+.hint{font-size:12.5px;color:var(--muted);text-align:center;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:6px}.hint svg{width:15px;height:15px;color:var(--acento)}
+@media(max-width:430px){.series{grid-template-columns:1fr}}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(80px);background:var(--ink);color:#fff;padding:13px 18px;border-radius:14px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 12px 30px rgba(0,0,0,.3);z-index:60;opacity:0;transition:.3s;max-width:90%}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}.toast svg{width:18px;height:18px;flex:0 0 auto;color:#6fd6cf}
+</style></head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge"><i data-lucide="activity"></i> Historial Médico</span>
+    <h1>Rana Waseem Ahmad</h1><div class="accent-line"></div>
+    <div class="sub">Paciente · 62 años · RUT 22.043.974-7</div>
+    <p class="desc">Exámenes médicos organizados y al día: laboratorio, cardiología, imágenes y biopsias & PAP. Cada examen incluye su informe y, cuando corresponde, sus videos por segmento. Use los filtros para encontrar cada examen.</p>
+    <div class="meta">
+      <span class="pill"><i data-lucide="calendar"></i> Actualizado 23 jun 2026</span>
+      <span class="pill"><i data-lucide="circle-check"></i> <span id="m-disp">0</span> disponibles</span>
+    </div>
+  </header>
+  <div class="filtros" id="filtros"></div>
+  <div id="lista"></div>
+  <footer>Plataforma privada de salud · <b>Rana Waseem Ahmad</b><br>Información confidencial · Hecho con NAGARE</footer>
+</div>
+<div class="modal" id="modal"><div class="modal-box">
+  <div class="modal-head"><div><h4 id="m-title">Documento</h4><div class="s" id="m-sub"></div></div><button class="x" onclick="cerrar()"><i data-lucide="x"></i></button></div>
+  <div class="modal-body" id="m-body"></div>
+</div></div>
+<div class="toast" id="toast"><span id="toast-ic"></span><span id="toast-msg"></span></div>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+const DB={"exams": [{"cat": "cardiologia", "nombre": "Coronariografía + By Pass", "lugar": "Centro de Terapia Endovascular · UC Christus", "fecha": "04 jun 2026", "informe": "examenes/cardiologia/coronariografia/informe.pdf", "findings": ["Tronco Coronario Izquierdo: gran desarrollo, irregularidades difusas y estrechamiento moderado hacia el segmento distal", "Arteria Descendente Anterior: ocluida en su segmento medio", "Arteria Circunfleja: solo se observa el ramo del surco AV (vasos de pared lateral ocluidos); ramo con enfermedad difusa y estenosis severa focal", "Arteria Coronaria Derecha: ocluida a nivel proximal; sombra de stent en el tercio medio", "LIMA-DA: permeable", "Puente venoso a ramo diagonal: difusamente enfermo, estenosis moderadas en dos segmentos", "Puente venoso a circunfleja: estenosis crítica en segmento medio, resto con irregularidades"], "clips": [{"label": "Acceso radial y canulación coronaria izquierda", "file": "examenes/cardiologia/coronariografia/clips/acceso-radial-y-canulacion-coronaria-izquierda.mp4", "poster": "examenes/cardiologia/coronariografia/clips/posters/acceso-radial-y-canulacion-coronaria-izquierda.jpg"}, {"label": "Coronaria izquierda – inyección selectiva (TCI y Circunfleja)", "file": "examenes/cardiologia/coronariografia/clips/coronaria-izquierda-inyeccion-selectiva-tci-y-ci.mp4", "poster": "examenes/cardiologia/coronariografia/clips/posters/coronaria-izquierda-inyeccion-selectiva-tci-y-ci.jpg"}, {"label": "Coronaria izquierda – proyección craneal / DA (oclusión media)", "file": "examenes/cardiologia/coronariografia/clips/coronaria-izquierda-proyeccion-craneal-da-oclusi.mp4", "poster": "examenes/cardiologia/coronariografia/clips/posters/coronaria-izquierda-proyeccion-craneal-da-oclusi.jpg"}, {"label": "Coronaria derecha nativa (oclusión proximal / sombra de stent)", "file": "examenes/cardiologia/coronariografia/clips/coronaria-derecha-nativa-oclusion-proximal-sombr.mp4", "poster": "examenes/cardiologia/coronariografia/clips/posters/coronaria-derecha-nativa-oclusion-proximal-sombr.jpg"}, {"label": "Puente LIMA-DA (permeable)", "file": "examenes/cardiologia/coronariografia/clips/puente-lima-da-permeable.mp4", "poster": "examenes/cardiologia/coronariografia/clips/posters/puente-lima-da-permeable.jpg"}, {"label": "Puente venoso a ramo diagonal", "file": "examenes/cardiologia/coronariografia/clips/puente-venoso-a-ramo-diagonal.mp4", "poster": "examenes/cardiologia/coronariografia/clips/posters/puente-venoso-a-ramo-diagonal.jpg"}, {"label": "Puente venoso – inyecciones secuenciales (diagonal/circunfleja)", "file": "examenes/cardiologia/coronariografia/clips/puente-venoso-inyecciones-secuenciales-diagonal-.mp4", "poster": "examenes/cardiologia/coronariografia/clips/posters/puente-venoso-inyecciones-secuenciales-diagonal-.jpg"}, {"label": "Puente venoso – run con cambio de panel", "file": "examenes/cardiologia/coronariografia/clips/puente-venoso-run-con-cambio-de-panel.mp4", "poster": "examenes/cardiologia/coronariografia/clips/posters/puente-venoso-run-con-cambio-de-panel.jpg"}, {"label": "Puente venoso a circunfleja (estenosis crítica)", "file": "examenes/cardiologia/coronariografia/clips/puente-venoso-a-circunfleja-estenosis-critica.mp4", "poster": "examenes/cardiologia/coronariografia/clips/posters/puente-venoso-a-circunfleja-estenosis-critica.jpg"}, {"label": "Puente venoso a coronaria derecha (ocluido) / survey", "file": "examenes/cardiologia/coronariografia/clips/puente-venoso-a-coronaria-derecha-ocluido-survey.mp4", "poster": "examenes/cardiologia/coronariografia/clips/posters/puente-venoso-a-coronaria-derecha-ocluido-survey.jpg"}, {"label": "Aortografía (pigtail 5F) – origen de puentes y raíz aórtica", "file": "examenes/cardiologia/coronariografia/clips/aortografia-pigtail-5f-origen-de-puentes-y-raiz-.mp4", "poster": "examenes/cardiologia/coronariografia/clips/posters/aortografia-pigtail-5f-origen-de-puentes-y-raiz-.jpg"}]}, {"cat": "cardiologia", "nombre": "Angioplastía Coronaria", "subt": "Balón liberador de drogas a puente venoso", "lugar": "Centro de Terapia Endovascular · UC Christus", "fecha": "11 jun 2026", "informe": "examenes/cardiologia/angioplastia/informe.pdf", "findings": ["Estenosis crítica de puente venoso a circunfleja (indicación del procedimiento)", "Angioplastía guiada por IVUS-NIRS", "Guía Runthrough avanzada a distal", "Pre-dilatación con balón 3.0x15 mm y balones no complacientes 3.5x20 y 4.0x20 mm", "Balón liberador de drogas PREVAIL 4.0x10 mm inflado 60 segundos", "Buen resultado angiográfico y por IVUS", "Flujo final TIMI 3"], "clips": [{"label": "IVUS-NIRS del puente venoso — primer cine (corte transversal + cronograma NIRS)", "file": "examenes/cardiologia/angioplastia/clips/ivus-nirs-del-puente-venoso-primer-cine-corte-tr.mp4", "poster": "examenes/cardiologia/angioplastia/clips/posters/ivus-nirs-del-puente-venoso-primer-cine-corte-tr.jpg"}, {"label": "Angiografía del puente venoso a circunfleja — inyección basal (cine)", "file": "examenes/cardiologia/angioplastia/clips/angiografia-del-puente-venoso-a-circunfleja-inye.mp4", "poster": "examenes/cardiologia/angioplastia/clips/posters/angiografia-del-puente-venoso-a-circunfleja-inye.jpg"}, {"label": "IVUS-NIRS del puente venoso — pullback / revisión extensa (corte transversal + NIRS)", "file": "examenes/cardiologia/angioplastia/clips/ivus-nirs-del-puente-venoso-pullback-revision-ex.mp4", "poster": "examenes/cardiologia/angioplastia/clips/posters/ivus-nirs-del-puente-venoso-pullback-revision-ex.jpg"}, {"label": "Angiografía del puente venoso — basal/wiring y avance de guía Runthrough", "file": "examenes/cardiologia/angioplastia/clips/angiografia-del-puente-venoso-basal-wiring-y-ava.mp4", "poster": "examenes/cardiologia/angioplastia/clips/posters/angiografia-del-puente-venoso-basal-wiring-y-ava.jpg"}, {"label": "Angiografía del puente venoso — pre-dilatación con balones (3.0x15 / no complacientes 3.5x20 y 4.0x20)", "file": "examenes/cardiologia/angioplastia/clips/angiografia-del-puente-venoso-pre-dilatacion-con.mp4", "poster": "examenes/cardiologia/angioplastia/clips/posters/angiografia-del-puente-venoso-pre-dilatacion-con.jpg"}, {"label": "Angiografía del puente venoso — balón liberador de drogas (PREVAIL 4.0x10) y resultado final TIMI 3", "file": "examenes/cardiologia/angioplastia/clips/angiografia-del-puente-venoso-balon-liberador-de.mp4", "poster": "examenes/cardiologia/angioplastia/clips/posters/angiografia-del-puente-venoso-balon-liberador-de.jpg"}]}, {"cat": "cardiologia", "nombre": "Ecocardiograma Transesofágico", "subt": "TTE + ETE · insuficiencia mitral severa", "lugar": "Red de Salud UC Christus", "fecha": "jun 2026", "informe": null, "findings": [], "clips": [{"label": "TTE 2D - vistas apicales/paraesternales (sonda X5-1c)", "file": "examenes/cardiologia/eco-transesofagico/clips/tte-2d-vistas-apicales-paraesternales-sonda-x5-1.mp4", "poster": "examenes/cardiologia/eco-transesofagico/clips/posters/tte-2d-vistas-apicales-paraesternales-sonda-x5-1.jpg"}, {"label": "TTE Doppler color - regurgitacion mitral", "file": "examenes/cardiologia/eco-transesofagico/clips/tte-doppler-color-regurgitacion-mitral.mp4", "poster": "examenes/cardiologia/eco-transesofagico/clips/posters/tte-doppler-color-regurgitacion-mitral.jpg"}, {"label": "TTE Doppler color - jets valvulares (multiples vistas)", "file": "examenes/cardiologia/eco-transesofagico/clips/tte-doppler-color-jets-valvulares-multiples-vist.mp4", "poster": "examenes/cardiologia/eco-transesofagico/clips/posters/tte-doppler-color-jets-valvulares-multiples-vist.jpg"}, {"label": "TTE Doppler CW - insuficiencia tricuspidea (presion pulmonar)", "file": "examenes/cardiologia/eco-transesofagico/clips/tte-doppler-cw-insuficiencia-tricuspidea-presion.mp4", "poster": "examenes/cardiologia/eco-transesofagico/clips/posters/tte-doppler-cw-insuficiencia-tricuspidea-presion.jpg"}, {"label": "TTE 2D adicional + Doppler color", "file": "examenes/cardiologia/eco-transesofagico/clips/tte-2d-adicional-doppler-color.mp4", "poster": "examenes/cardiologia/eco-transesofagico/clips/posters/tte-2d-adicional-doppler-color.jpg"}, {"label": "TTE 3D volumen completo (HMQ) + color", "file": "examenes/cardiologia/eco-transesofagico/clips/tte-3d-volumen-completo-hmq-color.mp4", "poster": "examenes/cardiologia/eco-transesofagico/clips/posters/tte-3d-volumen-completo-hmq-color.jpg"}, {"label": "TTE PW Doppler + medicion del arco aortico", "file": "examenes/cardiologia/eco-transesofagico/clips/tte-pw-doppler-medicion-del-arco-aortico.mp4", "poster": "examenes/cardiologia/eco-transesofagico/clips/posters/tte-pw-doppler-medicion-del-arco-aortico.jpg"}, {"label": "TTE strain / GLS (speckle-tracking)", "file": "examenes/cardiologia/eco-transesofagico/clips/tte-strain-gls-speckle-tracking.mp4", "poster": "examenes/cardiologia/eco-transesofagico/clips/posters/tte-strain-gls-speckle-tracking.jpg"}, {"label": "ETE/TEE - inicio: medioesofagico 2D y biplano xPlane (sonda X8-2t)", "file": "examenes/cardiologia/eco-transesofagico/clips/ete-tee-inicio-medioesofagico-2d-y-biplano-xplan.mp4", "poster": "examenes/cardiologia/eco-transesofagico/clips/posters/ete-tee-inicio-medioesofagico-2d-y-biplano-xplan.jpg"}, {"label": "ETE - barrido omniplano medioesofagico 2D (0-180 grados)", "file": "examenes/cardiologia/eco-transesofagico/clips/ete-barrido-omniplano-medioesofagico-2d-0-180-gr.mp4", "poster": "examenes/cardiologia/eco-transesofagico/clips/posters/ete-barrido-omniplano-medioesofagico-2d-0-180-gr.jpg"}, {"label": "ETE Doppler color - graduacion de la regurgitacion mitral (omniplano)", "file": "examenes/cardiologia/eco-transesofagico/clips/ete-doppler-color-graduacion-de-la-regurgitacion.mp4", "poster": "examenes/cardiologia/eco-transesofagico/clips/posters/ete-doppler-color-graduacion-de-la-regurgitacion.jpg"}, {"label": "ETE 3D en-face valvula mitral (vista del cirujano)", "file": "examenes/cardiologia/eco-transesofagico/clips/ete-3d-en-face-valvula-mitral-vista-del-cirujano.mp4", "poster": "examenes/cardiologia/eco-transesofagico/clips/posters/ete-3d-en-face-valvula-mitral-vista-del-cirujano.jpg"}, {"label": "ETE Doppler color + PW (venas pulmonares / flujo transmitral)", "file": "examenes/cardiologia/eco-transesofagico/clips/ete-doppler-color-pw-venas-pulmonares-flujo-tran.mp4", "poster": "examenes/cardiologia/eco-transesofagico/clips/posters/ete-doppler-color-pw-venas-pulmonares-flujo-tran.jpg"}, {"label": "ETE Doppler color - cuantificacion del jet de IM (split 2D+color, alta velocidad)", "file": "examenes/cardiologia/eco-transesofagico/clips/ete-doppler-color-cuantificacion-del-jet-de-im-s.mp4", "poster": "examenes/cardiologia/eco-transesofagico/clips/posters/ete-doppler-color-cuantificacion-del-jet-de-im-s.jpg"}, {"label": "ETE 3D en-face mitral (multiples adquisiciones)", "file": "examenes/cardiologia/eco-transesofagico/clips/ete-3d-en-face-mitral-multiples-adquisiciones.mp4", "poster": "examenes/cardiologia/eco-transesofagico/clips/posters/ete-3d-en-face-mitral-multiples-adquisiciones.jpg"}, {"label": "ETE 3D-MPR / cuantificacion (MVQ) de la valvula mitral", "file": "examenes/cardiologia/eco-transesofagico/clips/ete-3d-mpr-cuantificacion-mvq-de-la-valvula-mitr.mp4", "poster": "examenes/cardiologia/eco-transesofagico/clips/posters/ete-3d-mpr-cuantificacion-mvq-de-la-valvula-mitr.jpg"}, {"label": "ETE 2D biplano final (xPlane)", "file": "examenes/cardiologia/eco-transesofagico/clips/ete-2d-biplano-final-xplane.mp4", "poster": "examenes/cardiologia/eco-transesofagico/clips/posters/ete-2d-biplano-final-xplane.jpg"}]}, {"cat": "cardiologia", "nombre": "Ecocardiograma Doppler", "subt": "Transtorácico color", "lugar": "Red de Salud UC Christus", "fecha": "jun 2026", "informe": null, "findings": [], "clips": [{"label": "Paraesternal eje largo (PLAX) – 2D", "file": "examenes/cardiologia/eco-doppler/clips/paraesternal-eje-largo-plax-2d.mp4", "poster": "examenes/cardiologia/eco-doppler/clips/posters/paraesternal-eje-largo-plax-2d.jpg"}, {"label": "Paraesternal eje largo / entrada de VD – 2D", "file": "examenes/cardiologia/eco-doppler/clips/paraesternal-eje-largo-entrada-de-vd-2d.mp4", "poster": "examenes/cardiologia/eco-doppler/clips/posters/paraesternal-eje-largo-entrada-de-vd-2d.jpg"}, {"label": "Paraesternal eje corto – 2D", "file": "examenes/cardiologia/eco-doppler/clips/paraesternal-eje-corto-2d.mp4", "poster": "examenes/cardiologia/eco-doppler/clips/posters/paraesternal-eje-corto-2d.jpg"}, {"label": "Paraesternal – Doppler color (mapa tisular/flujo)", "file": "examenes/cardiologia/eco-doppler/clips/paraesternal-doppler-color-mapa-tisular-flujo.mp4", "poster": "examenes/cardiologia/eco-doppler/clips/posters/paraesternal-doppler-color-mapa-tisular-flujo.jpg"}, {"label": "Apical – Doppler color regurgitación (panel dual)", "file": "examenes/cardiologia/eco-doppler/clips/apical-doppler-color-regurgitacion-panel-dual.mp4", "poster": "examenes/cardiologia/eco-doppler/clips/posters/apical-doppler-color-regurgitacion-panel-dual.jpg"}, {"label": "Apical 4 cámaras – 2D", "file": "examenes/cardiologia/eco-doppler/clips/apical-4-camaras-2d.mp4", "poster": "examenes/cardiologia/eco-doppler/clips/posters/apical-4-camaras-2d.jpg"}, {"label": "Paraesternal eje corto grandes vasos – Doppler color", "file": "examenes/cardiologia/eco-doppler/clips/paraesternal-eje-corto-grandes-vasos-doppler-col.mp4", "poster": "examenes/cardiologia/eco-doppler/clips/posters/paraesternal-eje-corto-grandes-vasos-doppler-col.jpg"}, {"label": "Doppler espectral (PW/CW)", "file": "examenes/cardiologia/eco-doppler/clips/doppler-espectral-pw-cw.mp4", "poster": "examenes/cardiologia/eco-doppler/clips/posters/doppler-espectral-pw-cw.jpg"}, {"label": "Apical 4 cámaras – 2D", "file": "examenes/cardiologia/eco-doppler/clips/apical-4-camaras-2d.mp4", "poster": "examenes/cardiologia/eco-doppler/clips/posters/apical-4-camaras-2d.jpg"}, {"label": "Apical 4 cámaras – Doppler color / tisular", "file": "examenes/cardiologia/eco-doppler/clips/apical-4-camaras-doppler-color-tisular.mp4", "poster": "examenes/cardiologia/eco-doppler/clips/posters/apical-4-camaras-doppler-color-tisular.jpg"}, {"label": "Apical – Doppler color + espectral (cuantificación de jets)", "file": "examenes/cardiologia/eco-doppler/clips/apical-doppler-color-espectral-cuantificacion-de.mp4", "poster": "examenes/cardiologia/eco-doppler/clips/posters/apical-doppler-color-espectral-cuantificacion-de.jpg"}, {"label": "Apical – Doppler color / tisular", "file": "examenes/cardiologia/eco-doppler/clips/apical-doppler-color-tisular.mp4", "poster": "examenes/cardiologia/eco-doppler/clips/posters/apical-doppler-color-tisular.jpg"}, {"label": "Apical – Doppler color jet de regurgitación", "file": "examenes/cardiologia/eco-doppler/clips/apical-doppler-color-jet-de-regurgitacion.mp4", "poster": "examenes/cardiologia/eco-doppler/clips/posters/apical-doppler-color-jet-de-regurgitacion.jpg"}, {"label": "Paraesternal eje corto – nivel valvular / grandes vasos (2D)", "file": "examenes/cardiologia/eco-doppler/clips/paraesternal-eje-corto-nivel-valvular-grandes-va.mp4", "poster": "examenes/cardiologia/eco-doppler/clips/posters/paraesternal-eje-corto-nivel-valvular-grandes-va.jpg"}]}, {"cat": "cardiologia", "nombre": "Electrocardiograma", "subt": "ECG en reposo", "lugar": "Cardiología Escuela Militar · UC Christus", "fecha": "28 may 2026", "informe": "examenes/cardiologia/electrocardiograma/informe.pdf", "findings": ["Ritmo: sinusal (normal y regular)", "Frecuencia cardíaca: 66 latidos por minuto (normal)", "Conducción AV: conducción auriculoventricular normal", "Conducción intraventricular: retraso parcial de la conducción intraventricular (QRS 111 mseg)", "Eje eléctrico del QRS: moderada desviación a la izquierda (-38°)", "Aurícula: onda P ancha y mellada en D2 con componente negativo prominente en V1; crecimiento/sobrecarga auricular izquierda", "Ventrículo: onda S profunda y prominente en V2 y V3; hipertrofia ventricular izquierda", "Repolarización: onda T invertida en D1, aVL y V6, y plana en V5; alteración de la repolarización lateral, probablemente por sobrecarga sistólica del ventrículo izquierdo"], "clips": []}, {"cat": "imagenes", "nombre": "RM Columna Lumbar", "lugar": "Centro Médico Escuela Militar · UC Christus", "fecha": "22 jun 2026", "informe": null, "findings": [], "series": [{"label": "Coronal", "img": "examenes/imagenes/rm-columna-lumbar/img-1-coronal.jpeg", "clip": "examenes/imagenes/rm-columna-lumbar/clip-1-coronal.mp4"}, {"label": "Sagital T2", "img": "examenes/imagenes/rm-columna-lumbar/img-2-sagital-t2.jpeg", "clip": "examenes/imagenes/rm-columna-lumbar/clip-2-sagital-t2.mp4"}, {"label": "Axial · nivel A", "img": "examenes/imagenes/rm-columna-lumbar/img-3-axial-a.jpeg", "clip": "examenes/imagenes/rm-columna-lumbar/clip-3-axial-a.mp4"}, {"label": "Axial · nivel B", "img": "examenes/imagenes/rm-columna-lumbar/img-4-axial-b.jpeg", "clip": "examenes/imagenes/rm-columna-lumbar/clip-4-axial-b.mp4"}, {"label": "Sagital STIR", "img": "examenes/imagenes/rm-columna-lumbar/img-5-sagital-stir.jpeg", "clip": "examenes/imagenes/rm-columna-lumbar/clip-5-sagital-stir.mp4"}, {"label": "Sagital T1", "img": "examenes/imagenes/rm-columna-lumbar/img-6-sagital-t1.jpeg", "clip": "examenes/imagenes/rm-columna-lumbar/clip-6-sagital-t1.mp4"}]}, {"cat": "imagenes", "nombre": "Scanner / TAC de Tórax", "lugar": "Centro Médico Escuela Militar · UC Christus", "fecha": "27 may 2026", "informe": "examenes/imagenes/scanner-torax/informe.pdf", "findings": ["Leve derrame pleural hipodenso bilateral, mayor a derecha, con atelectasias pasivas subsegmentarias bibasales", "Engrosamiento septal interlobulillar liso de predominio basal con vidrio esmerilado tenue — edema pulmonar intersticial con escaso componente alveolar", "Bandas atelectásicas subsegmentarias en ambos lóbulos superiores; sin condensaciones ni nódulos/masas patológicas", "Sin atrapamiento aéreo significativo en espiración; sin neumotórax", "Tráquea y bronquios principales permeables, sin lesiones endobronquiales obstructivas", "Cardiomegalia con dilatación de atrio izquierdo; acentuada ateromatosis cálcica coronaria", "Cambios post quirúrgicos de revascularización miocárdica y recambio protésico de aorta torácica ascendente; sin colecciones mediastínicas"], "clips": [{"label": "Axial - ventana pulmonar (1ª pasada cráneo-caudal): parénquima, derrame pleural, atelectasias y engrosamiento septal", "file": "examenes/imagenes/scanner-torax/clips/axial-ventana-pulmonar-1a-pasada-craneo-caudal-p.mp4", "poster": "examenes/imagenes/scanner-torax/clips/posters/axial-ventana-pulmonar-1a-pasada-craneo-caudal-p.jpg"}, {"label": "Axial - ventana mediastínica/partes blandas: corazón, mediastino, aorta protésica y cambios post by-pass", "file": "examenes/imagenes/scanner-torax/clips/axial-ventana-mediastinica-partes-blandas-corazo.mp4", "poster": "examenes/imagenes/scanner-torax/clips/posters/axial-ventana-mediastinica-partes-blandas-corazo.jpg"}, {"label": "Axial - ventana pulmonar (2ª pasada): revisión de parénquima superior y bandas atelectásicas", "file": "examenes/imagenes/scanner-torax/clips/axial-ventana-pulmonar-2a-pasada-revision-de-par.mp4", "poster": "examenes/imagenes/scanner-torax/clips/posters/axial-ventana-pulmonar-2a-pasada-revision-de-par.jpg"}, {"label": "Sagital - reformación multiplanar (ventana pulmonar)", "file": "examenes/imagenes/scanner-torax/clips/sagital-reformacion-multiplanar-ventana-pulmonar.mp4", "poster": "examenes/imagenes/scanner-torax/clips/posters/sagital-reformacion-multiplanar-ventana-pulmonar.jpg"}, {"label": "Coronal - ventana pulmonar: ambos pulmones, predominio basal del compromiso intersticial", "file": "examenes/imagenes/scanner-torax/clips/coronal-ventana-pulmonar-ambos-pulmones-predomin.mp4", "poster": "examenes/imagenes/scanner-torax/clips/posters/coronal-ventana-pulmonar-ambos-pulmones-predomin.jpg"}, {"label": "Coronal - ventana mediastínica: corazón, aorta protésica y grandes vasos", "file": "examenes/imagenes/scanner-torax/clips/coronal-ventana-mediastinica-corazon-aorta-prote.mp4", "poster": "examenes/imagenes/scanner-torax/clips/posters/coronal-ventana-mediastinica-corazon-aorta-prote.jpg"}, {"label": "Sagital - reformación multiplanar (ventana mediastínica y pulmonar): mediastino, columna y aorta", "file": "examenes/imagenes/scanner-torax/clips/sagital-reformacion-multiplanar-ventana-mediasti.mp4", "poster": "examenes/imagenes/scanner-torax/clips/posters/sagital-reformacion-multiplanar-ventana-mediasti.jpg"}, {"label": "Coronal - ventana pulmonar (revisión final): ambos pulmones", "file": "examenes/imagenes/scanner-torax/clips/coronal-ventana-pulmonar-revision-final-ambos-pu.mp4", "poster": "examenes/imagenes/scanner-torax/clips/posters/coronal-ventana-pulmonar-revision-final-ambos-pu.jpg"}]}, {"cat": "imagenes", "nombre": "RX Tórax (AP) Portátil", "lugar": "Hospital UC Christus · Marcoleta 367", "fecha": "29 may 2026", "informe": "examenes/imagenes/rx-torax-portatil/informe-rx-torax.pdf", "findings": [], "clips": []}, {"cat": "laboratorio", "nombre": "Panel completo", "subt": "Gases, bioquímico/hepático, función renal, PTH, vit. D, hemograma", "lugar": "Laboratorio Clínico · UC Christus", "fecha": "07 jun 2026", "informe": "examenes/laboratorio/lab-1-panel-completo-07jun.pdf", "findings": [], "clips": []}, {"cat": "laboratorio", "nombre": "Perfil bioquímico + pro-BNP", "subt": "Control bioquímico/hepático, electrolitos, función renal", "lugar": "Laboratorio Clínico · UC Christus", "fecha": "09 jun 2026", "informe": "examenes/laboratorio/lab-2-bioquimico-probnp-09jun.pdf", "findings": [], "clips": []}, {"cat": "laboratorio", "nombre": "Bioquímico + hemograma", "subt": "Control bioquímico, electrolitos, función renal, hemograma", "lugar": "Laboratorio Clínico · UC Christus", "fecha": "10 jun 2026", "informe": "examenes/laboratorio/lab-3-bioquimico-hemograma-10jun.pdf", "findings": [], "clips": []}, {"cat": "laboratorio", "nombre": "Líquido ascítico / peritoneal", "subt": "Creatinina, urea, proteínas, glucosa", "lugar": "Laboratorio Clínico · UC Christus", "fecha": "10 jun 2026", "informe": "examenes/laboratorio/lab-4-liquido-ascitico-10jun.pdf", "findings": [], "clips": []}, {"cat": "laboratorio", "nombre": "Gases venosos + electrolitos", "subt": "Sodio, potasio, cloro, función renal", "lugar": "Laboratorio Clínico · UC Christus", "fecha": "11 jun 2026", "informe": "examenes/laboratorio/lab-5-gases-electrolitos-11jun.pdf", "findings": [], "clips": []}], "cats": {"laboratorio": {"n": "01", "titulo": "Laboratorio", "icon": "flask-conical"}, "cardiologia": {"n": "02", "titulo": "Cardiología", "icon": "heart-pulse"}, "imagenes": {"n": "03", "titulo": "Imágenes", "icon": "scan-line"}, "biopsias": {"n": "04", "titulo": "Biopsias & PAP", "icon": "microscope"}}};
+const EX=DB.exams, CATS=DB.cats;
+const ORDER=["laboratorio","cardiologia","imagenes","biopsias"];
+const I=n=>`<i data-lucide="${n}"></i>`;
+function media(e){return (e.series&&e.series.length)||(e.clips&&e.clips.length)}
+function disp(e){return !!(e.informe||media(e))}
+function icons(){if(window.lucide)lucide.createIcons()}
+
+function build(){
+  const f=document.getElementById('filtros');
+  f.innerHTML=`<div class="chip activo" data-f="todos">Todos <span class="n">${EX.length}</span></div>`+
+    ORDER.map(c=>`<div class="chip" data-f="${c}">${CATS[c].titulo} <span class="n">${EX.filter(e=>e.cat===c).length}</span></div>`).join('');
+  document.getElementById('m-disp').textContent=EX.filter(disp).length;
+}
+function render(filtro){
+  const lista=document.getElementById('lista');lista.innerHTML='';
+  const grupos=(filtro==='todos')?ORDER:[filtro];
+  grupos.forEach(cat=>{
+    const items=EX.filter(e=>e.cat===cat);
+    const sec=document.createElement('div');sec.className='sec';
+    sec.innerHTML=`<div class="sec-head"><div class="tile">${I(CATS[cat].icon)}</div>
+      <div><div class="num">SECCIÓN ${CATS[cat].n}</div><h2>${CATS[cat].titulo}</h2></div>
+      <span class="count">${items.length}</span></div><div class="sec-rule"></div>`;
+    if(!items.length){const v=document.createElement('div');v.className='vacio';
+      v.innerHTML=`<div class="tile">${I('inbox')}</div>Aún no hay exámenes cargados en esta sección.`;sec.appendChild(v);}
+    else items.forEach(e=>sec.appendChild(card(e,EX.indexOf(e))));
+    lista.appendChild(sec);
+  });
+  icons();
+}
+function card(e,idx){
+  const ok=disp(e);const hasSeries=e.series&&e.series.length;const hasClips=e.clips&&e.clips.length;
+  const d=document.createElement('div');d.className='card'+(ok?'':' off');
+  if(!ok)d.onclick=()=>toast('info','Este examen aún no está disponible.');
+  d.innerHTML=`<div class="card-top"><div><h3>${e.nombre}</h3>${e.subt?`<div class="subt">${e.subt}</div>`:''}</div>
+    <span class="estado ${ok?'ok':'no'}"><span class="dot"></span>${ok?'Disponible':'No disponible'}</span></div>
+    <div class="info"><span>${I('map-pin')} ${e.lugar}</span><span>${I('calendar')} ${e.fecha}</span></div>`;
+  if(ok){const a=document.createElement('div');a.className='acciones';
+    let b='';
+    b+=`<button class="btn btn-ghost" ${e.informe?'':'disabled'} onclick="ver(${idx},'pdf')">${I('file-text')} Informe</button>`;
+    if(hasSeries)b+=`<button class="btn btn-primary" onclick="ver(${idx},'series')">${I('image')} Imágenes y video · ${e.series.length}</button>`;
+    else if(hasClips)b+=`<button class="btn btn-primary" onclick="ver(${idx},'clips')">${I('clapperboard')} Videos · ${e.clips.length}</button>`;
+    else if(e.findings&&e.findings.length)b+=`<button class="btn btn-primary" onclick="ver(${idx},'find')">${I('list')} Hallazgos</button>`;
+    a.innerHTML=b;d.appendChild(a);}
+  return d;
+}
+function hallazgosHTML(e){
+  if(!e.findings||!e.findings.length)return '';
+  return `<div class="hallazgos"><h5>${I('stethoscope')} Hallazgos del informe</h5><ul>`+
+    e.findings.map(f=>`<li>${f}</li>`).join('')+`</ul></div>`;
+}
+function ver(idx,tipo){
+  const e=EX[idx];const body=document.getElementById('m-body');
+  document.getElementById('m-title').textContent=e.nombre;
+  document.getElementById('m-sub').textContent=`${e.lugar} · ${e.fecha}`;
+  if(tipo==='pdf'){
+    body.innerHTML=hallazgosHTML(e)+`<div style="position:relative"><div class="loader"><div class="spin"></div>Cargando informe…</div>
+      <iframe src="${e.informe}" style="width:100%;height:62vh;border:none;border-radius:12px;background:#f1f4f6;opacity:0;transition:.3s" onload="this.style.opacity=1;this.previousElementSibling.remove()"></iframe></div>`;
+    toast('file-text','Mostrando informe médico');
+  }else if(tipo==='find'){
+    body.innerHTML=hallazgosHTML(e)+`<p class="hint">${I('info')} Resumen de hallazgos del informe.</p>`;
+  }else if(tipo==='series'){
+    body.innerHTML=`<div class="series">`+e.series.map((s,i)=>`<div class="serie" id="serie-${i}"><div class="media">
+      <span class="tag">${I('video')} video</span><img src="${s.img}" alt="${s.label}">
+      <div class="play" onclick="playSerie(${idx},${i})"><div class="circ">${I('play')}</div></div>
+      <span class="cap">${s.label}</span></div></div>`).join('')+`</div>
+      <p class="hint">${I('pointer')} Toca cualquier imagen para ver el video de esa serie.</p>`;
+    toast('image',`${e.series.length} series · imagen + video`);
+  }else{ // clips
+    body.innerHTML=hallazgosHTML(e)+`<div class="series">`+e.clips.map((c,i)=>`<div class="serie" id="clip-${i}"><div class="media">
+      <span class="tag">${I('video')} video</span>
+      <img src="${c.poster}" alt="${c.label}" onerror="this.style.display='none'">
+      <div class="play" onclick="playClip(${idx},${i})"><div class="circ">${I('play')}</div></div>
+      <span class="cap">${c.label}</span></div></div>`).join('')+`</div>
+      <p class="hint">${I('pointer')} Toca cualquier recuadro para reproducir ese segmento.</p>`;
+    toast('clapperboard',`${e.clips.length} videos por segmento`);
+  }
+  document.getElementById('modal').classList.add('show');icons();
+}
+function playSerie(idx,i){const s=EX[idx].series[i];document.querySelector(`#serie-${i} .media`).innerHTML=
+  `<video src="${s.clip}" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;background:#000"></video><span class="cap">${s.label}</span>`;}
+function playClip(idx,i){const c=EX[idx].clips[i];document.querySelector(`#clip-${i} .media`).innerHTML=
+  `<video src="${c.file}" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;background:#000"></video><span class="cap">${c.label}</span>`;}
+function cerrar(){document.getElementById('modal').classList.remove('show');document.getElementById('m-body').innerHTML='';}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')cerrar();});
+document.getElementById('filtros').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;
+  document.querySelectorAll('.chip').forEach(x=>x.classList.remove('activo'));c.classList.add('activo');render(c.dataset.f);});
+let toastT;function toast(ic,msg){const t=document.getElementById('toast');
+  document.getElementById('toast-ic').innerHTML=I(ic);document.getElementById('toast-msg').textContent=msg;icons();
+  t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2800);}
+build();render('todos');icons();
+</script></body></html>
